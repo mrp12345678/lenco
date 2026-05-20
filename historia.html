@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Senta que lá vem história — Lenço dos Namorados</title>
+  <link rel="stylesheet" href="https://use.typekit.net/wux6ulc.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rosa: #EB117F;
+      --verde: #4BA632;
+      --azul: #169DEA;
+      --laranja: #F97813;
+    }
+
+    html, body { width: 100%; height: 100%; overflow: hidden; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-image: url('fundo.jpg');
+      background-repeat: repeat;
+      background-size: 600px auto;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.6);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    #backBtn {
+      position: fixed;
+      top: 26px;
+      left: 24px;
+      z-index: 100;
+      border: none;
+      background: rgba(255,255,255,0.95);
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: #888;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: background 0.2s;
+    }
+    #backBtn:hover { background: #ebebeb; }
+
+    #pageHeader {
+      position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  padding: 24px 60px 16px 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+    }
+
+    #pageTitle {
+      font-family: "dreaming-outloud-script", sans-serif;
+      font-size: 2.5rem;
+      color: var(--rosa);
+      line-height: 1;
+      text-align: center;
+    }
+
+    #scrollHint {
+      font-size: 0.75rem;
+      color: #bbb;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    #scrollContainer {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100vh;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      padding-top: 60px;
+      cursor: grab;
+    }
+    #scrollContainer:active { cursor: grabbing; }
+    #scrollContainer::-webkit-scrollbar { display: none; }
+
+    #timeline {
+      position: relative;
+      height: 100%;
+      width: 1600px;
+    }
+
+    #threadLine {
+      position: absolute;
+      left: 0;
+      top: 55%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    #threadLine img {
+      width: 1600px;
+      height: 678px;
+      display: block;
+      mix-blend-mode: screen;
+    }
+
+    .block {
+      position: absolute;
+      width: 280px;
+      z-index: 10;
+    }
+
+    .block.top { top: 60px; }
+    .block.bottom { bottom: 50px; }
+
+    .block-label {
+      font-size: 0.68rem;
+      color: #bbb;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .block-title {
+      font-weight: 500;
+      font-size: 2rem;
+      line-height: 1;
+      margin-bottom: 10px;
+      color: #888;
+    }
+
+    .block-text {
+      font-size: 0.82rem;
+      color: #777;
+      line-height: 1.65;
+    }
+
+    .dot {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      border: 2px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .stacked-photo {
+      position: absolute;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.12));
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .stacked-photo:hover {
+      transform: rotate(0deg) scale(1.08) !important;
+      filter: drop-shadow(0 14px 28px rgba(0,0,0,0.2)) !important;
+    }
+
+    .symbol {
+      position: absolute;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.82);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    #lightbox.open { display: flex; }
+
+    #lightboxImg {
+      max-width: 60vw;
+      max-height: 72vh;
+      border-radius: 14px;
+      object-fit: contain;
+    }
+
+    #lightboxClose {
+      position: fixed;
+      top: 20px; right: 20px;
+      background: white;
+      border: none;
+      border-radius: 50%;
+      width: 42px; height: 42px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      color: #888;
+    }
+
+    .block-number {
+  font-family: "DM SANS", sans-serif;
+  font-size: 0.75rem;
+  color: rgba(87, 87, 87, 0.5);
+  line-height: 1.8;
+  margin-bottom: 4px;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <button id="backBtn" onclick="window.location.href='index.html'">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+    Voltar
+  </button>
+
+  <div id="pageHeader">
+    <div id="pageTitle">Senta que lá vem história</div>
+    <div id="scrollHint">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+      desliza para descobrir
+    </div>
+  </div>
+
+  <div id="scrollContainer">
+    <div id="timeline">
+
+      <div id="threadLine">
+        <img src="linha.png" alt="linha"/>
+      </div>
+
+      <!-- SÍMBOLO ao lado esquerdo do bloco 1 -->
+      <img class="symbol" src="passarinho3.png" style="left: 30px; top: 55px; width: 200px; opacity: 0.85;"/>
+
+      <!-- BLOCO 1 -->
+      <div class="block" style="left: 250px; top: 55px;">
+        <div class="block-number">01</div>
+        <div class="block-label">Origem</div>
+        <div class="block-title">Séculos<br>17 e 18</div>
+        <div class="block-text">As senhoras do Minho bordavam lenços para passar o tempo. Faziam parte do vestuário feminino com função decorativa. Eram quadrados, de linho ou algodão.</div>
+      </div>
+
+      <!-- DUAS FOTOS SOBREPOSTAS ao lado esquerdo do bloco 2 -->
+      <img class="stacked-photo" src="fotopasso12.jpg" onclick="openLightbox(this)" style="left: 90px; top: 430px; width: 180px; height: 140px; transform: rotate(-8deg); z-index: 10;"/>
+      <img class="stacked-photo" src="fotopasso1.jpg" onclick="openLightbox(this)" style="left: 230px; top: 460px; width: 160px; height: 140px; transform: rotate(6deg); z-index: 11;"/>
+
+      <!-- BLOCO 2 -->
+      <div class="block" style="left: 480px; top: 400px;">
+        <div class="block-number">02</div>
+        <div class="block-label">Tradição</div>
+        <div class="block-title">Século<br>19</div>
+        <div class="block-text">O lenço torna-se símbolo de amor. Namorados trocavam lenços bordados para dizer o que as palavras não ousavam. Cada ponto era uma promessa.</div>
+      </div>
+
+      <!-- BLOCO 3 + foto maior + símbolo -->
+      <img class="stacked-photo" src="foto2passo1.jpg" onclick="openLightbox(this)" style="left: 740px; top: 120px; width: 250px; height: 200px; transform: rotate(-3deg); z-index: 10;"/>
+<!-- Símbolo ao lado direito da foto -->
+<img class="symbol" src="lua.png" style="left: 890px; top: 70px; width: 230px; opacity: 0.85;"/>
+       
+
+      <!-- BLOCO 4 + foto direita + símbolo atrás -->
+    <div class="block" style="left: 1060px; top: 400px;">
+      <div class="block-number">03</div>
+        <div class="block-label">Resistência</div>
+        <div class="block-title">Século<br>20</div>
+        <div class="block-text">Com a modernização, o lenço foi perdendo o seu lugar. Mas as bordadeiras continuaram a preservar a tradição, passando-a de mãe para filha.</div>
+      </div>
+      <!-- Foto à direita do bloco 4 -->
+      <img class="stacked-photo" src="fotopasso2.jpg" onclick="openLightbox(this)" style="left: 1380px; top: 420px; width: 160px; height: 130px; transform: rotate(4deg); z-index: 10;"/>
+
+      <!-- BLOCO 5 -->
+      <div class="block" style="left: 1230px; top: 55px;">
+        <div class="block-number">04</div>
+        <div class="block-label">Hoje</div>
+        <div class="block-title">O lenço<br>renasceu</div>
+        <div class="block-text">O lenço dos namorados é hoje Património Cultural Imaterial de Portugal. Um convite a escrever e sentir que comunicar com intenção nunca saiu de moda.</div>
+      </div>
+
+  <div id="lightbox">
+    <img id="lightboxImg" src="" alt=""/>
+    <button id="lightboxClose" onclick="closeLightbox()">✕</button>
+  </div>
+
+  <script>
+    const container = document.getElementById('scrollContainer');
+    let isDown = false, startX, scrollLeft;
+
+    container.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    });
+    container.addEventListener('mouseleave', () => isDown = false);
+    container.addEventListener('mouseup', () => isDown = false);
+    container.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      container.scrollLeft = scrollLeft - (e.pageX - container.offsetLeft - startX) * 1.5;
+    });
+
+    container.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      container.scrollLeft += e.deltaY * 2;
+    }, { passive: false });
+
+    function openLightbox(el) {
+      document.getElementById('lightboxImg').src = el.src;
+      document.getElementById('lightbox').classList.add('open');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+
+    document.getElementById('lightbox').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('lightbox')) closeLightbox();
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lenço dos Namorados</title>
+  <link rel="stylesheet" href="https://use.typekit.net/wux6ulc.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="screen">
+
+   <div id="lencoArea">
+  <img id="backgroundImg" src="fundo.jpg" alt=""/>
+<img id="bordado" src="bordados.png" alt=""/>
+  <div id="editable" contenteditable="true"></div>
+</div>
+
+    <button id="menuToggle" aria-label="Abrir menu">
+      <svg width="18" height="16" viewBox="0 0 18 16">
+        <line x1="0" y1="1" x2="18" y2="1" stroke="#3c3c3c" stroke-width="1.1"/>
+        <line x1="0" y1="8" x2="18" y2="8" stroke="#3c3c3c" stroke-width="1.1"/>
+        <line x1="0" y1="15" x2="18" y2="15" stroke="#3c3c3c" stroke-width="1.1"/>
+      </svg>
+    </button>
+
+    <div id="menu" class="hidden">
+  <button id="openLibraryBtn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7"/>
+      <rect x="14" y="3" width="7" height="7"/>
+      <rect x="3" y="14" width="7" height="7"/>
+      <rect x="14" y="14" width="7" height="7"/>
+    </svg>
+    Biblioteca de lenços
+  </button>
+  <button id="openAsBordadeirasBtn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+    </svg>
+    As bordadeiras
+  </button>
+  <button id="openSentaBtn" onclick="window.location.href='historia.html'">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+    </svg>
+    Senta que lá vem história
+  </button>
+</div>
+<button id="backHomeBtn2" aria-label="Voltar">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3c3c3c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="15 18 9 12 15 6"/>
+  </svg>
+  Voltar
+</button>
+<div id="libraryPanel" class="hidden">
+
+
+
+
+
+<div id="libraryHeader">
+  <p id="librarySubtitle">A tua biblioteca de lenços</p>
+</div>
+<p id="librarySubtitleSub">Toca no teu lenço para o selecionar e enviá-lo por email.</p>
+<div id="libraryList"></div>
+
+      <div id="emailBar">
+        <input type="email" id="emailInput" placeholder="Escreve o teu email"/>
+        <button id="sendEmailBtn">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+  </svg>
+  Enviar
+</button>
+      </div>
+
+      <div id="popup" class="hidden">
+        <div class="popup-content">
+          <button id="closePopup">✕</button>
+          <p>O seu lenço foi enviado!</p>
+        </div>
+      </div>
+    </div>
+
+<div id="bottomBar">
+      <button id="bottomSaveImageBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download do lenço
+      </button>
+
+       <div style="width: 1px; height: 20px; background: #cecece;"></div>
+
+      <button id="bottomSaveLibraryBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+          <polyline points="17 21 17 13 7 13 7 21"/>
+          <polyline points="7 3 7 8 15 8"/>
+        </svg>
+        Guardar na biblioteca
+      </button>
+
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

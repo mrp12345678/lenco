@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lenço dos Namorados</title>
+  <link rel="stylesheet" href="https://use.typekit.net/wux6ulc.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+
+    .step-header {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: #aaaaaa;
+  text-transform: uppercase;
+  margin-bottom: 0;
+  align-self: center;
+}
+
+  .btn-back {
+  position: absolute;
+  left: 40px;
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #aaaaaa;
+  padding: 0;
+  line-height: 1;
+}
+
+.btn-back:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  padding: 2px;
+}
+    
+    :root {
+      --amarelo: #F2B705;
+      --verde: #4BA632;
+      --laranja: #F97813;
+      --azul: #169DEA;
+      --rosa: #EB117F;
+      --texto: #2a2a2a;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-image: url('fundo.jpg');
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    #onboarding {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .step {
+   display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 32px;
+  max-width: 560px;
+  width: 100%;
+  animation: fadeIn 0.6s ease forwards;
+    }
+
+    .step.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-number {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: #aaaaaa;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    .step-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .step h1 {
+      font-family: "dreaming-outloud-script", sans-serif;
+      font-size: 2.4rem;
+      color: var(--rosa);
+      margin-bottom:14px;
+      line-height: 1.3;
+    }
+
+    .step h2 {
+      font-family: "dreaming-outloud-script", sans-serif;
+      font-size: 2.4rem;
+      color: #EB117F;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .step p {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 520px;
+    }
+
+    .btn-primary {
+      background: #4BA632;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 36px;
+      font-size: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-primary:hover {
+      background: #3d8f28;
+      transform: scale(1.02);
+    }
+
+   .btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  max-width: 520px;
+    }
+
+
+    body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: 0;
+}
+
+#onboarding {
+  position: relative;
+  z-index: 10;
+}
+
+    .btn-option {
+      background: white;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 16px;
+      padding: 16px 12px;
+      font-size: 0.95rem;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      color: var(--texto);
+      transition: border-color 0.2s, background 0.2s, transform 0.1s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+  .btn-option .opt-icon {
+  width: 60x;
+  height:60px;
+  object-fit: contain;
+}
+
+    .btn-option:hover {
+      border-color: #cccccc;
+      background: #ebebeb;
+      transform: scale(1.02);
+    }
+
+    .btn-option.selected {
+      border-color: #cccccc;
+      background: #ebebeb;
+    }
+
+       .progress {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .progress-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ddd;
+      transition: background 0.3s;
+    }
+
+    .progress-dot.active {
+      background: var(--rosa);
+    }
+
+    .bordado-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      object-fit: fill;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .bordado-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      object-fit: fill;
+      pointer-events: none;
+      opacity: 0.6;
+      transform: scaleY(-1);
+    }
+
+     #bordado {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+
+    /* Step 4 special */
+    .highlight-word {
+      color: var(--rosa);
+      font-family: "dreaming-outloud-script", sans-serif;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+
+<img id="bordado" src="bordados.png" alt=""/>
+
+  <div id="onboarding">
+
+    <!-- Passo 1 -->
+    <div class="step active" id="step-1">
+      <div class="step-number">01 / 04</div>
+      <h1>O lenço dos namorados</h1>
+      <p>Fazem parte da tradição portuguesa e carregam histórias escritas à mão, símbolos e sentimentos que atravessam gerações.
+Aqui, pode recriar o seu próprio lenço: escolha símbolos, escreva uma mensagem e transforme memórias em algo único.</p>
+      <button class="btn-primary" onclick="goToStep(2)">Continuar</button>
+    </div>
+
+  <!-- Passo 2 -->
+<div class="step" id="step-2">
+  <div class="step-header">
+  <button class="btn-back" onclick="goToStep(1)">←</button>
+  <div class="step-number">02 / 03</div>
+</div>
+  <h2>Para quem quer dedicar o seu lenço?</h2>
+  <p>Os lenços não são só para amores — são para todas as pessoas que merecem palavras verdadeiras.</p>
+  <div class="btn-grid">
+    <button class="btn-option" onclick="selectOption(this, 4)">
+      <img src="coracaomini2.png" class="opt-icon" alt=""/>
+      Um amor
+    </button>
+    <button class="btn-option" onclick="selectOption(this, 4)">
+      <img src="miniflor2.png" class="opt-icon" alt=""/>
+      Um familiar
+    </button>
+    <button class="btn-option" onclick="selectOption(this, 4)">
+      <img src="solmini2.png" class="opt-icon" alt=""/>
+      Um amigo
+    </button>
+    <button class="btn-option" onclick="selectOption(this, 4)">
+      <img src="miniestrela2.png" class="opt-icon" alt=""/>
+      Outro
+    </button>
+  </div>
+</div>
+
+    
+    <!-- Passo 4 -->
+    <div class="step" id="step-4">
+     <div class="step-header">
+  <button class="btn-back" onclick="goToStep(2)">←</button>
+  <div class="step-number">04 / 04</div>
+</div>
+      <h1>Agora é sua vez!</h1>
+      <p>Crie um lenço único à sua maneira. Não há regras, cada símbolo e cada palavra ajudam a contar a sua história.</p>
+      <button class="btn-primary" onclick="startExperience()">Começar a criar</button>
+    </div>
+
+  </div>
+
+
+  <script>
+    function goToStep(n) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.progress-dot').forEach(d => d.classList.remove('active'));
+      document.getElementById('step-' + n).classList.add('active');
+      document.getElementById('dot-' + n).classList.add('active');
+    }
+
+    function selectOption(btn, nextStep) {
+      const grid = btn.closest('.btn-grid');
+      grid.querySelectorAll('.btn-option').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      setTimeout(() => goToStep(nextStep), 400);
+    }
+
+    function startExperience() {
+      document.body.style.opacity = '0';
+      document.body.style.transition = 'opacity 0.5s';
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 500);
+    }
+  </script>
+
+</body>
+</html>
